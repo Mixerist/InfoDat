@@ -114,7 +114,7 @@
         public short unknown1 { get; set; }
         public byte mIsEvent { get; set; }
         public short mEventQuest { get; set; }
-        public float unknown2 { get; set; } /* mScale */
+        public float mEScale { get; set; }
     }
 
     public class DT_ItemResource
