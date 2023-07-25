@@ -12,6 +12,11 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+# Rider/Resharper stuff
+*/.idea/
+/Assets/Plugins/Editor/JetBrains/
+/Assets/Plugins/Editor/JetBrains.meta
+
 # AWS User-specific
 .idea/**/aws.xml
 
