@@ -8,8 +8,7 @@ public class Parser
 {
     private const string FileName = "Info.dat";
 
-    private const string Url = "http://r2parser.test:8080";
-    private const string ConnectionString = "Data Source=192.168.1.133,1433;Initial Catalog=FNLParm;User ID=11;Password=777777;";
+    private const string ConnectionString = "Data Source=127.0.0.1,1433;Initial Catalog=FNLParm;User ID=sa;Password=password;";
 
     private readonly BinaryWriter _writer = new(File.Create(FileName));
 
@@ -24,14 +23,14 @@ public class Parser
                 ParseEachStruct((object[])subsetOfStructs.GetValue(structs));
             }
         }
-        
+
         Console.WriteLine("Completed!");
     }
 
     private Struct GetStructs()
     {
-        // var json = new HttpClient().GetStringAsync(Url).Result;
         var json = new Database().LoadData(ConnectionString);
+
         return JsonConvert.DeserializeObject<Struct>(json);
     }
 
@@ -58,10 +57,13 @@ public class Parser
     private byte[] ParseString(string field)
     {
         if (string.IsNullOrEmpty(field))
+        {
             return BitConverter.GetBytes(0);
+        }
 
         var bytes = Encoding.UTF8.GetBytes(field);
         var length = BitConverter.GetBytes(bytes.Length);
+
         return length.Concat(bytes).ToArray();
     }
 }
