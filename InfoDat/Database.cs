@@ -204,7 +204,7 @@ public class Database
 
                         if (val is bool boolValue)
                         {
-                            val = boolValue ? "0" : "1";
+                            val = boolValue ? "1" : "0";
                         }
 
                         dataItem.Add(reader.GetName(i), val.ToString());
