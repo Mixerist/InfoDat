@@ -25,7 +25,7 @@ public class Database
                 },
                 {
                     "DT_Monster",
-                    "SELECT MID, MName, MClass, MGbjType, MAiType, mAttackRange, MCastingDelay, mScale, mNationOp, IContentsLv, mIsShowHp, mSupportType, mWMapIconType, mAttackType, mIsEvent, mEventQuest FROM DT_Monster"
+                    "SELECT MID, MName, MClass, MGbjType, MAiType, mAttackRange, MCastingDelay, mScale, mNationOp, IContentsLv, mIsShowHp, mSupportType, mWMapIconType, mAttackType, mIsEvent, mEventQuest, mEScale FROM DT_Monster"
                 },
                 {
                     "DT_ItemResource",
