@@ -8,7 +8,7 @@ public class Parser
 {
     private const string FileName = "Info.dat";
 
-    private const string ConnectionString = "Data Source=127.0.0.1,1433;Initial Catalog=FNLParm;User ID=sa;Password=password;";
+    private const string ConnectionString = "Data Source=(local);Database=FNLParm;Integrated Security=sspi;";
 
     private readonly BinaryWriter _writer = new(File.Create(FileName));
 
