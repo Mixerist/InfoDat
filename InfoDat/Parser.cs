@@ -8,8 +8,6 @@ public class Parser
 {
     private const string FileName = "Info.dat";
 
-    private const string ConnectionString = "Data Source=(local);Database=FNLParm;Integrated Security=sspi;";
-
     private readonly BinaryWriter _writer = new(File.Create(FileName));
 
     public void Run()
@@ -24,12 +22,12 @@ public class Parser
             }
         }
 
-        Console.WriteLine("Completed!");
+        Console.WriteLine($"'{FileName}' was parsed successfully from database");
     }
 
     private Struct GetStructs()
     {
-        var json = new Database().LoadData(ConnectionString);
+        var json = new Database().LoadData(Program.GetConfig().ConnectionString);
 
         return JsonConvert.DeserializeObject<Struct>(json);
     }
