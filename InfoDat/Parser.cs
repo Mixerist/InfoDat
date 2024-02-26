@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
+using static InfoDat.Program;
 
 namespace InfoDat;
 
@@ -27,7 +28,7 @@ public class Parser
 
     private Struct GetStructs()
     {
-        var json = new Database().LoadData(Program.GetConfig().ConnectionString);
+        var json = new Database().LoadData(GetConfig().ConnectionString);
 
         return JsonConvert.DeserializeObject<Struct>(json);
     }
@@ -59,7 +60,7 @@ public class Parser
             return BitConverter.GetBytes(0);
         }
 
-        var bytes = Encoding.UTF8.GetBytes(field);
+        var bytes = Encoding.GetEncoding(GetConfig().Encoding).GetBytes(field);
         var length = BitConverter.GetBytes(bytes.Length);
 
         return length.Concat(bytes).ToArray();
