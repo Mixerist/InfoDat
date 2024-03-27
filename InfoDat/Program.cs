@@ -41,7 +41,7 @@ namespace InfoDat
 
         public static Config? GetConfig()
         {
-            return JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
+            return JsonConvert.DeserializeObject<Config>(File.ReadAllText("Config.json"));
         }
     }
 }
