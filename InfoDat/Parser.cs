@@ -13,6 +13,8 @@ public class Parser
 
     public void Run()
     {
+        Log("Parsing has started, please wait...");
+
         var structs = GetStructs();
 
         using (_writer)
@@ -23,14 +25,14 @@ public class Parser
             }
         }
 
-        Console.WriteLine($"'{FileName}' was parsed successfully from database");
+        Log($"'{FileName}' was created successfully");
     }
 
     private Struct GetStructs()
     {
         var json = new Database().LoadData(GetConfig().ConnectionString);
 
-        return JsonConvert.DeserializeObject<Struct>(json);
+        return JsonConvert.DeserializeObject<Struct>(json) ?? throw new InvalidOperationException();
     }
 
     private dynamic GetValue(PropertyInfo field, object structure)

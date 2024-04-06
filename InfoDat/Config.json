@@ -1,6 +1,5 @@
 {
   "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
-  "FileName": "Info.dat",
   "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
   "ReplaceInfoDat": false,
   "Encoding": 1251

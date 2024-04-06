@@ -14,34 +14,41 @@ namespace InfoDat
 
             if (GetConfig().ReplaceInfoDat)
             {
-                ReplaceFileInZip(GetConfig().EtcFilePath, GetConfig().FileName);
+                ReplaceInfoDatInEtcRfs(GetConfig().EtcFilePath);
             }
 
-            Console.WriteLine("Press any key to continue");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
 
-        private static void ReplaceFileInZip(string zipFilePath, string fileName)
+        private static void ReplaceInfoDatInEtcRfs(string etcRfsPath, string fileName = "Info.dat")
         {
-            using var archive = ZipFile.Open(zipFilePath, ZipArchiveMode.Update);
-            var existingEntry = archive.GetEntry(fileName);
+            using var etcRfs = ZipFile.Open(etcRfsPath, ZipArchiveMode.Update);
+            var infoDat = etcRfs.GetEntry(fileName);
 
-            if (existingEntry != null)
+            if (infoDat != null)
             {
-                existingEntry.Delete();
+                infoDat.Delete();
+                etcRfs.CreateEntryFromFile(fileName, fileName);
 
-                archive.CreateEntryFromFile(fileName, fileName);
-                Console.WriteLine($"File '{fileName}' replaced in '{zipFilePath}'");
+                Log($"File '{fileName}' replaced in '{etcRfsPath}'");
             }
             else
             {
-                throw new FileNotFoundException($"File '{fileName}' not found in '{zipFilePath}'");
+                throw new FileNotFoundException($"File '{fileName}' not found in '{etcRfsPath}'");
             }
         }
 
-        public static Config? GetConfig()
+        public static Config GetConfig()
         {
-            return JsonConvert.DeserializeObject<Config>(File.ReadAllText("Config.json"));
+            var config = File.ReadAllText("Config.json");
+
+            return JsonConvert.DeserializeObject<Config>(config) ?? throw new InvalidOperationException();
+        }
+
+        public static void Log(string message)
+        {
+            Console.WriteLine($"[{DateTime.Now:dd.MM.yyyy HH:mm:ss}] " + message);
         }
     }
 }
