@@ -17,7 +17,7 @@ namespace InfoDat
                 ReplaceInfoDatInEtcRfs(GetConfig().EtcFilePath);
             }
 
-            Console.WriteLine("Press any key to continue...");
+            Console.Write(Environment.NewLine + "Press any key to continue...");
             Console.ReadKey();
         }
 
