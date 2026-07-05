@@ -1,4 +1,4 @@
-﻿namespace InfoDat
+namespace InfoDat
 {
     public class Struct
     {
@@ -38,6 +38,13 @@
         public DT_SkillEnhancement[] DT_SkillEnhancement { get; set; }
         public DT_SkillEnhancementMaterial[] DT_SkillEnhancementMaterial { get; set; }
         public TblOtherMerchantInfo[] TblOtherMerchantInfo { get; set; }
+        public TblCardCollectionTitle[] TblCardCollectionTitle { get; set; }
+        public TblCardCollectionCondition[] TblCardCollectionCondition { get; set; }
+        public TblSkillEnhancementDescription[] TblSkillEnhancementDescription { get; set; }
+        public TblCardCollectionMonster[] TblCardCollectionMonster { get; set; }
+        public TblMissionCondition[] TblMissionCondition { get; set; }
+        public TblPopupGuideCondition[] TblPopupGuideCondition { get; set; }
+        public TblSpecificProcItem[] TblSpecificProcItem { get; set; }
         public TP_SkillTree[] TP_SkillTree { get; set; }
         public DT_SkillTreeNode[] DT_SkillTreeNode { get; set; }
         public DT_SkillTreeNodeItem[] DT_SkillTreeNodeItem { get; set; }
@@ -87,6 +94,7 @@
         public short IGetItemFeedback { get; set; }
         public short ISubType { get; set; }
         public byte IMaxBeadHoleCount { get; set; }
+        public byte IIsUnusableDemoSvr { get; set; }
     }
 
     public class DT_ItemSkill
@@ -384,6 +392,7 @@
         public short SCategory { get; set; }
         public byte SEvolutionStep { get; set; }
         public short SType { get; set; }
+        public int SGrade { get; set; }
     }
 
     public class TblServantCombineAddAbility
@@ -429,6 +438,7 @@
         public byte mOrderNo { get; set; }
         public int mItemID { get; set; }
         public int mCnt { get; set; }
+        public byte mType { get; set; }
     }
 
     public class TblOtherMerchantInfo
@@ -436,6 +446,68 @@
         public int mMerchantID { get; set; }
         public int mMaxBuyItemCnt { get; set; }
         public byte mMaxTrayCnt { get; set; }
+    }
+
+    public class TblCardCollectionTitle
+    {
+        public int mTitleNo { get; set; }
+        public string mTitleName { get; set; }
+        public int mRewardNo { get; set; }
+        public byte mParentNo { get; set; }
+        public byte mOrderNo { get; set; }
+        public int mItemNo { get; set; }
+    }
+
+    public class TblCardCollectionCondition
+    {
+        public int mTitleNo { get; set; }
+        public int mCardID { get; set; }
+        public int mColorCardID { get; set; }
+        public byte mOrderNo { get; set; }
+        public int mSPID { get; set; }
+        public int mItemID { get; set; }
+    }
+
+    public class TblSkillEnhancementDescription
+    {
+        public int mSPID { get; set; }
+        public string mDesc { get; set; }
+        public int mID { get; set; }
+    }
+
+    public class TblCardCollectionMonster
+    {
+        public int mCardID { get; set; }
+        public int mColorCardID { get; set; }
+        public byte mOrderNo { get; set; }
+        public int mMonsterID { get; set; }
+    }
+
+    public class TblMissionCondition
+    {
+        public int mMsNo { get; set; }
+        public int mObjCnt { get; set; }
+        public int mItemID { get; set; }
+        public byte unknown2 { get; set; }
+    }
+
+    public class TblPopupGuideCondition
+    {
+        public int mConID { get; set; }
+        public int mGuideNo { get; set; }
+        public int mConType { get; set; }
+        public int mAParm { get; set; }
+        public int mBParm { get; set; }
+        public int mCParm { get; set; }
+    }
+
+    public class TblSpecificProcItem
+    {
+        public int mIID { get; set; }
+        public int mCParam { get; set; }
+        public int unknown1 { get; set; }
+        public int mDParam { get; set; }
+        public int unknown2 { get; set; }
     }
 
     public class TP_SkillTree

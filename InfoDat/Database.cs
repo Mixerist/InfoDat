@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+using System.Data.SqlClient;
 using Newtonsoft.Json.Linq;
 
 namespace InfoDat;
@@ -17,7 +17,7 @@ public class Database
             {
                 {
                     "DT_Item",
-                    "SELECT IID, IName, IType, IMaxStack, IWeight, ITermOfValidity, ITermOfValidityMi, IDesc, IUseType, IUseNum, IStatus, IFakeID, IFakeName, IUseMsg, IRange, IUseClass, IDropEffect, IUseLevel, ILevel, IUseEternal, IUseDelay, IIsIndict, IIsCharge, IPShopItemType, INationOp, IContentsLv, IIsSealable, mSealRemovalNeedCnt, mIsPracticalPeriod, IAddShortAttackRange, IAddLongAttackRange, IGetItemFeedback, ISubType, IMaxBeadHoleCount FROM DT_Item"
+                    "SELECT IID, IName, IType, IMaxStack, IWeight, ITermOfValidity, ITermOfValidityMi, IDesc, IUseType, IUseNum, IStatus, IFakeID, IFakeName, IUseMsg, IRange, IUseClass, IDropEffect, IUseLevel, ILevel, IUseEternal, IUseDelay, IIsIndict, IIsCharge, IPShopItemType, INationOp, IContentsLv, IIsSealable, mSealRemovalNeedCnt, mIsPracticalPeriod, IAddShortAttackRange, IAddLongAttackRange, IGetItemFeedback, ISubType, IMaxBeadHoleCount, IIsUnusableDemoSvr FROM DT_Item"
                 },
                 {
                     "DT_ItemSkill",
@@ -133,7 +133,7 @@ public class Database
                 },
                 {
                     "TblServantType",
-                    "SELECT IID, SCategory, SEvolutionStep, SType FROM TblServantType"
+                    "SELECT IID, SCategory, SEvolutionStep, SType, SGrade FROM TblServantType"
                 },
                 {
                     "TblServantCombineAddAbility",
@@ -153,11 +153,39 @@ public class Database
                 },
                 {
                     "DT_SkillEnhancementMaterial",
-                    "SELECT mESPID, mOrderNo, mItemID, mCnt FROM DT_SkillEnhancementMaterial"
+                    "SELECT mESPID, mOrderNo, mItemID, mCnt, mType FROM DT_SkillEnhancementMaterial"
                 },
                 {
                     "TblOtherMerchantInfo",
                     "SELECT mMerchantID, mMaxBuyItemCnt, mMaxTrayCnt FROM TblOtherMerchantInfo"
+                },
+                {
+                    "TblCardCollectionTitle",
+                    "SELECT mTitleNo, mTitleName, mRewardNo, mParentNo, mOrderNo, mItemNo FROM TblCardCollectionTitle"
+                },
+                {
+                    "TblCardCollectionCondition",
+                    "SELECT mTitleNo, mCardID, mColorCardID, mOrderNo, mSPID, mItemID FROM TblCardCollectionCondition"
+                },
+                {
+                    "TblSkillEnhancementDescription",
+                    "SELECT mSPID, mDesc, mID FROM TblSkillEnhancementDescription"
+                },
+                {
+                    "TblCardCollectionMonster",
+                    "SELECT mCardID, mColorCardID, mOrderNo, mMonsterID FROM TblCardCollectionMonster"
+                },
+                {
+                    "TblMissionCondition",
+                    "SELECT tc.mMsNo, tc.mObjCnt, ISNULL(tr.mItemID, 0) AS mItemID, CASE WHEN ISNULL(tr.mItemCnt, 0) = 0 THEN 1 ELSE 0 END AS unknown2 FROM TblMissionCondition tc INNER JOIN TblMission tm ON tc.mMsNo = tm.mMsNo LEFT JOIN TblMissionReward tr ON tm.mRewardNo = tr.mRewardNo"
+                },
+                {
+                    "TblPopupGuideCondition",
+                    "SELECT mConID, mGuideNo, mConType, mAParm, mBParm, mCParm FROM TblPopupGuideCondition"
+                },
+                {
+                    "TblSpecificProcItem",
+                    "SELECT mIID, mCParam, CAST(ROUND(mDParam, 0) AS INT) AS mDParam FROM TblSpecificProcItem WHERE mProcNo = 22"
                 },
                 {
                     "TP_SkillTree",
