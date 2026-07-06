@@ -2,5 +2,6 @@
   "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
   "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
   "ReplaceInfoDat": false,
-  "Encoding": 1251
+  "Encoding": 1251,
+  "ClientVersion": null
 }

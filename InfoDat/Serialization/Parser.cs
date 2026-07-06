@@ -11,26 +11,42 @@ public class Parser
 
     private readonly BinaryWriter _writer = new(File.Create(FileName));
 
-    public void Run()
+    private int _version;
+
+    public void Run(int version)
     {
         Log("Parsing has started, please wait...");
 
-        var structs = GetStructs();
+        _version = version;
+
+        var structs = GetStructs(version);
 
         using (_writer)
         {
             foreach (var subsetOfStructs in structs.GetType().GetProperties())
             {
-                ParseEachStruct((object[])subsetOfStructs.GetValue(structs));
+                if (!Versioning.IsActive(subsetOfStructs, version))
+                {
+                    continue;
+                }
+
+                var value = (object[])subsetOfStructs.GetValue(structs);
+
+                if (value == null)
+                {
+                    continue;
+                }
+
+                ParseEachStruct(value);
             }
         }
 
         Log($"'{FileName}' was created successfully");
     }
 
-    private Struct GetStructs()
+    private Struct GetStructs(int version)
     {
-        var json = new Database().LoadData(GetConfig().ConnectionString);
+        var json = new Database().LoadData(GetConfig().ConnectionString, version);
 
         return JsonConvert.DeserializeObject<Struct>(json) ?? throw new InvalidOperationException();
     }
@@ -50,6 +66,11 @@ public class Parser
         {
             foreach (var field in structure.GetType().GetProperties())
             {
+                if (!Versioning.IsActive(field, _version))
+                {
+                    continue;
+                }
+
                 _writer.Write(GetValue(field, structure));
             }
         }

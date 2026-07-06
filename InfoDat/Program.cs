@@ -10,7 +10,10 @@ namespace InfoDat
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
-            new Parser().Run();
+            // resolve before the parser opens Info.dat so a bad db doesn't wipe it
+            var version = ResolveVersion();
+
+            new Parser().Run(version);
 
             if (GetConfig().ReplaceInfoDat)
             {
@@ -37,6 +40,24 @@ namespace InfoDat
             {
                 throw new FileNotFoundException($"File '{fileName}' not found in '{etcRfsPath}'");
             }
+        }
+
+        private static int ResolveVersion()
+        {
+            var config = GetConfig();
+
+            if (config.ClientVersion.HasValue)
+            {
+                VersionDetector.Validate(config.ConnectionString, config.ClientVersion.Value);
+                Log($"Client version {config.ClientVersion.Value} (forced via config)");
+
+                return config.ClientVersion.Value;
+            }
+
+            var version = VersionDetector.Detect(config.ConnectionString);
+            Log($"Client version {version} (detected from database)");
+
+            return version;
         }
 
         public static Config GetConfig()

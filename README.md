@@ -2,9 +2,12 @@
 
 Программа для автоматической генерации **Info.dat** файла для клиента игры **R2 Online** напрямую из базы данных.
 
-## 🎮 Поддерживаемая версия клиента
+## 🎮 Поддерживаемые версии клиента
 
-- Клиент **R2 Online** версии **1602**.
+Поддерживается несколько версий клиента **R2 Online**. Версия определяется автоматически по схеме базы данных, либо задаётся вручную параметром `ClientVersion`.
+
+- **1602**
+- **1703**
 
 ## ⚙️ Использование
 
@@ -23,44 +26,21 @@
     "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
     "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
     "ReplaceInfoDat": false,
-    "Encoding": 1251
+    "Encoding": 1251,
+    "ClientVersion": null
 }
 ```
 
 ### Параметры
 
-- **`ConnectionString`**  
-  Строка подключения к базе данных (SQL Server).
-    - Пример:
-      ```
-      Data Source=(local);Database=FNLParm;Integrated Security=sspi;
-      ```
-    - Поддерживаются стандартные параметры SQL Server:
-        - `Data Source` — адрес сервера (например, `(local)` или `127.0.0.1`).
-        - `Database` — имя базы данных.
-        - `Integrated Security` — тип авторизации (`sspi` для Windows-аутентификации).
-    - ✅ Корректный `ConnectionString` можно сгенерировать на сайте:  
-      [SQL Server Connection String Generator](https://www.aireforge.com/tools/sql-server-connection-string-generator)
+| Параметр | Описание | Значения / пример |
+|---|---|---|
+| `ConnectionString` | Строка подключения к базе данных (SQL Server). Основные части: `Data Source` — адрес сервера (`(local)`, `127.0.0.1`), `Database` — имя БД, `Integrated Security` — тип авторизации (`sspi` для Windows-аутентификации). | `Data Source=(local);Database=FNLParm;Integrated Security=sspi;` |
+| `EtcFilePath` | Путь к файлу `etc.rfs` клиента. Используется только при `ReplaceInfoDat = true` для замены `Info.dat` в клиенте. В JSON слеши экранируются двойными (`\\`). | `D:\\R2\\R2 PTS\\etc\\etc.rfs` |
+| `ReplaceInfoDat` | Заменять ли `Info.dat` прямо в клиенте. | `true` — перезаписать (нужен `EtcFilePath`), `false` — не трогать |
+| `Encoding` | Кодировка текстовых данных (номер кодовой страницы Windows). | `1251` — Windows-1251 (кириллица), `65001` — UTF-8 |
+| `ClientVersion` | Версия клиента, под которую генерируется `Info.dat`. | `null` — автоопределение по схеме БД (по умолчанию), `1602` / `1703` — задать явно |
 
-- **`EtcFilePath`**  
-  Путь к файлу `etc.rfs` клиента **R2 Online**.
-    - Используется **только если** `ReplaceInfoDat = true`.
-    - Нужен для автоматической замены сгенерированного файла `Info.dat` в клиенте игры.
-    - В JSON необходимо указывать путь с **двойными обратными слешами** (`\\`).
-    - Пример:
-      ```
-      D:\\R2\\R2 PTS\\etc\\etc.rfs
-      ```
+Сгенерировать корректный `ConnectionString` можно на сайте: <a href="https://www.aireforge.com/tools/sql-server-connection-string-generator" target="_blank" rel="noopener noreferrer">SQL Server Connection String Generator</a>.
 
-- **`ReplaceInfoDat`**  
-  Флаг, указывающий, нужно ли заменять существующий `Info.dat`.
-    - Возможные значения:
-        - `true` — перезаписать файл `Info.dat` в клиенте (требуется корректный `EtcFilePath`).
-        - `false` — не заменять существующий файл.
-
-- **`Encoding`**  
-  Кодировка, используемая для текстовых данных.
-    - Значение задаётся в виде числового идентификатора кодовой страницы (Windows Code Page).
-    - Пример:
-        - `1251` — Windows-1251 (кириллица).
-        - `65001` — UTF-8.  
+Список значений `Encoding` — в справочнике Microsoft: <a href="https://learn.microsoft.com/ru-ru/windows/win32/intl/code-page-identifiers" target="_blank" rel="noopener noreferrer">Code Page Identifiers</a>.
