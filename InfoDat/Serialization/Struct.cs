@@ -38,13 +38,13 @@ namespace InfoDat
         public DT_SkillEnhancement[] DT_SkillEnhancement { get; set; }
         public DT_SkillEnhancementMaterial[] DT_SkillEnhancementMaterial { get; set; }
         public TblOtherMerchantInfo[] TblOtherMerchantInfo { get; set; }
-        public TblCardCollectionTitle[] TblCardCollectionTitle { get; set; }
-        public TblCardCollectionCondition[] TblCardCollectionCondition { get; set; }
-        public TblSkillEnhancementDescription[] TblSkillEnhancementDescription { get; set; }
-        public TblCardCollectionMonster[] TblCardCollectionMonster { get; set; }
-        public TblMissionCondition[] TblMissionCondition { get; set; }
-        public TblPopupGuideCondition[] TblPopupGuideCondition { get; set; }
-        public TblSpecificProcItem[] TblSpecificProcItem { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblCardCollectionTitle[] TblCardCollectionTitle { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblCardCollectionCondition[] TblCardCollectionCondition { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblSkillEnhancementDescription[] TblSkillEnhancementDescription { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblCardCollectionMonster[] TblCardCollectionMonster { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblMissionCondition[] TblMissionCondition { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblPopupGuideCondition[] TblPopupGuideCondition { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public TblSpecificProcItem[] TblSpecificProcItem { get; set; }
         public TP_SkillTree[] TP_SkillTree { get; set; }
         public DT_SkillTreeNode[] DT_SkillTreeNode { get; set; }
         public DT_SkillTreeNodeItem[] DT_SkillTreeNodeItem { get; set; }
@@ -76,6 +76,7 @@ namespace InfoDat
         public byte ILevel { get; set; }
         public short IUseEternal { get; set; }
         public int IUseDelay { get; set; }
+        // padding the client reads here, don't drop or reorder
         public short unknown1 { get; set; }
         public int unknown2 { get; set; }
         public int unknown3 { get; set; }
@@ -94,7 +95,7 @@ namespace InfoDat
         public short IGetItemFeedback { get; set; }
         public short ISubType { get; set; }
         public byte IMaxBeadHoleCount { get; set; }
-        public byte IIsUnusableDemoSvr { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public byte IIsUnusableDemoSvr { get; set; }
     }
 
     public class DT_ItemSkill
@@ -392,7 +393,7 @@ namespace InfoDat
         public short SCategory { get; set; }
         public byte SEvolutionStep { get; set; }
         public short SType { get; set; }
-        public int SGrade { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public int SGrade { get; set; }
     }
 
     public class TblServantCombineAddAbility
@@ -438,7 +439,7 @@ namespace InfoDat
         public byte mOrderNo { get; set; }
         public int mItemID { get; set; }
         public int mCnt { get; set; }
-        public byte mType { get; set; }
+        [Versioned(MinVersion = Versioning.V1703)] public byte mType { get; set; }
     }
 
     public class TblOtherMerchantInfo
