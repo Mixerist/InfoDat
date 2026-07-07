@@ -32,7 +32,7 @@ public class Database
             },
             {
                 "DT_ItemResource",
-                "SELECT RID, ROwnerID, RType, CASE WHEN RFileName IS NULL OR RFileName = '' THEN '0' ELSE RFileName END AS RFileName, CASE WHEN RPosX IS NULL THEN 0 ELSE RPosX END AS RPosX, CASE WHEN RPosY IS NULL THEN 0 ELSE RPosY END AS RPosY FROM DT_ItemResource"
+                "SELECT RID, ROwnerID, RType, CASE WHEN RFileName IS NULL OR RFileName = '' THEN '0' ELSE RFileName END AS RFileName, CASE WHEN RPosX IS NULL THEN 0 ELSE RPosX END AS RPosX, CASE WHEN RPosY IS NULL THEN 0 ELSE RPosY END AS RPosY FROM DT_ItemResource WHERE ROwnerID <> 0"
             },
             {
                 "DT_MonsterResource",
@@ -56,7 +56,7 @@ public class Database
             },
             {
                 "TblQuest",
-                "SELECT TblQuest.mQuestNo, mClass, mLevel1, mLevel2, mPreQuestNo, mIsOverlap, TblQuestRefMonster.mMonsterID AS mMonsterID1, mAbandonment, mDifficulty, mRewardNo, mScriptType, mPlace, mPosX, mPosY, mPosZ, mVisible, mTextNo, mParentNo, mFindNPC, mCompletionNPC FROM TblQuest INNER JOIN TblQuestRefMonster ON TblQuest.mQuestNo = TblQuestRefMonster.mQuestNo WHERE TblQuestRefMonster.mQuestNo NOT IN (SELECT mQuestNo FROM TblQuestRefMonster GROUP BY mQuestNo HAVING COUNT(mQuestNo) > 1)"
+                "WITH mon AS (SELECT mQuestNo, MAX(CASE WHEN rn = 1 THEN mMonsterID END) AS mMonsterID1, MAX(CASE WHEN rn = 2 THEN mMonsterID END) AS mMonsterID2, MAX(CASE WHEN rn = 3 THEN mMonsterID END) AS mMonsterID3, MAX(CASE WHEN rn = 4 THEN mMonsterID END) AS mMonsterID4, MAX(CASE WHEN rn = 5 THEN mMonsterID END) AS mMonsterID5 FROM (SELECT mQuestNo, mMonsterID, ROW_NUMBER() OVER (PARTITION BY mQuestNo ORDER BY mMonsterID) AS rn FROM TblQuestRefMonster) t WHERE rn <= 5 GROUP BY mQuestNo) SELECT q.mQuestNo, q.mClass, q.mLevel1, q.mLevel2, q.mPreQuestNo, q.mIsOverlap, ISNULL(mon.mMonsterID1, 0) AS mMonsterID1, ISNULL(mon.mMonsterID2, 0) AS mMonsterID2, ISNULL(mon.mMonsterID3, 0) AS mMonsterID3, ISNULL(mon.mMonsterID4, 0) AS mMonsterID4, ISNULL(mon.mMonsterID5, 0) AS mMonsterID5, q.mAbandonment, q.mDifficulty, q.mRewardNo, q.mScriptType, q.mPlace, q.mPosX, q.mPosY, q.mPosZ, q.mVisible, q.mTextNo, q.mParentNo, q.mFindNPC, q.mCompletionNPC FROM TblQuest q LEFT JOIN mon ON q.mQuestNo = mon.mQuestNo"
             },
             {
                 "TblQuestInfo",
