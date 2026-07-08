@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using System.IO.Compression;
+using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 
 namespace InfoDat
@@ -24,22 +24,26 @@ namespace InfoDat
             Console.ReadKey();
         }
 
+        private const string InfoDatPassword = "4a3408a275b0343719ae2ab7250a8cab0c03b2178a58f2de";
+
         private static void ReplaceInfoDatInEtcRfs(string etcRfsPath, string fileName = "Info.dat")
         {
-            using var etcRfs = ZipFile.Open(etcRfsPath, ZipArchiveMode.Update);
-            var infoDat = etcRfs.GetEntry(fileName);
+            var etcRfs = new ZipFile(etcRfsPath);
 
-            if (infoDat != null)
+            if (etcRfs.GetEntry(fileName) == null)
             {
-                infoDat.Delete();
-                etcRfs.CreateEntryFromFile(fileName, fileName);
-
-                Log($"File '{fileName}' replaced in '{etcRfsPath}'");
-            }
-            else
-            {
+                etcRfs.Close();
                 throw new FileNotFoundException($"File '{fileName}' not found in '{etcRfsPath}'");
             }
+
+            etcRfs.Password = InfoDatPassword;
+            etcRfs.BeginUpdate();
+            etcRfs.Delete(fileName);
+            etcRfs.Add(fileName, fileName);
+            etcRfs.CommitUpdate();
+            etcRfs.Close();
+
+            Log($"File '{fileName}' replaced in '{etcRfsPath}'");
         }
 
         private static int ResolveVersion()
