@@ -28,6 +28,7 @@
     "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
     "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
     "ReplaceInfoDat": false,
+    "EncryptInfoDat": true,
     "Encoding": 1251,
     "ClientVersion": null
 }
@@ -40,6 +41,7 @@
 | `ConnectionString` | Строка подключения к базе данных (SQL Server). Основные части: `Data Source` — адрес сервера (`(local)`, `127.0.0.1`), `Database` — имя БД, `Integrated Security` — тип авторизации (`sspi` для Windows-аутентификации). | `Data Source=(local);Database=FNLParm;Integrated Security=sspi;` |
 | `EtcFilePath` | Путь к файлу `etc.rfs` клиента. Используется только при `ReplaceInfoDat = true` для замены `Info.dat` в клиенте. В JSON слеши экранируются двойными слешами (`\\`). | `D:\\R2\\R2 PTS\\etc\\etc.rfs` |
 | `ReplaceInfoDat` | Заменять ли `Info.dat` прямо в клиенте. | `true` — перезаписать (нужен `EtcFilePath`), `false` — не трогать |
+| `EncryptInfoDat` | Устанавливать ли пароль на `Info.dat` при упаковке в `etc.rfs`. Работает только при `ReplaceInfoDat = true`. | `true` — зашифровать паролем, `false` — без шифрования |
 | `Encoding` | Кодировка текстовых данных (номер кодовой страницы Windows). | `1251` — Windows-1251 (кириллица), `65001` — UTF-8 |
 | `ClientVersion` | Версия клиента, под которую генерируется `Info.dat`. | `null` — автоопределение по схеме БД (по умолчанию), `1602` / `1703` — задать явно |
 

@@ -17,7 +17,7 @@ namespace InfoDat
 
             if (GetConfig().ReplaceInfoDat)
             {
-                ReplaceInfoDatInEtcRfs(GetConfig().EtcFilePath);
+                ReplaceInfoDatInEtcRfs(GetConfig().EtcFilePath, GetConfig().EncryptInfoDat);
             }
 
             Console.Write(Environment.NewLine + "Press any key to continue...");
@@ -26,7 +26,7 @@ namespace InfoDat
 
         private const string InfoDatPassword = "4a3408a275b0343719ae2ab7250a8cab0c03b2178a58f2de";
 
-        private static void ReplaceInfoDatInEtcRfs(string etcRfsPath, string fileName = "Info.dat")
+        private static void ReplaceInfoDatInEtcRfs(string etcRfsPath, bool encrypt, string fileName = "Info.dat")
         {
             var etcRfs = new ZipFile(etcRfsPath);
 
@@ -36,7 +36,11 @@ namespace InfoDat
                 throw new FileNotFoundException($"File '{fileName}' not found in '{etcRfsPath}'");
             }
 
-            etcRfs.Password = InfoDatPassword;
+            if (encrypt)
+            {
+                etcRfs.Password = InfoDatPassword;
+            }
+
             etcRfs.BeginUpdate();
             etcRfs.Delete(fileName);
             etcRfs.Add(fileName, fileName);

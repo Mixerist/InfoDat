@@ -28,6 +28,7 @@
     "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
     "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
     "ReplaceInfoDat": false,
+    "EncryptInfoDat": true,
     "Encoding": 1251,
     "ClientVersion": null
 }
@@ -40,6 +41,7 @@
 | `ConnectionString` | 数据库（SQL Server）连接字符串。主要组成部分：`Data Source` — 服务器地址（`(local)`、`127.0.0.1`），`Database` — 数据库名称，`Integrated Security` — 认证方式（Windows 身份验证使用 `sspi`）。 | `Data Source=(local);Database=FNLParm;Integrated Security=sspi;` |
 | `EtcFilePath` | 客户端 `etc.rfs` 文件的路径。仅在 `ReplaceInfoDat = true` 时用于替换客户端中的 `Info.dat`。在 JSON 中，斜杠需用双斜杠（`\\`）转义。 | `D:\\R2\\R2 PTS\\etc\\etc.rfs` |
 | `ReplaceInfoDat` | 是否直接替换客户端中的 `Info.dat`。 | `true` — 覆盖（需要 `EtcFilePath`），`false` — 不修改 |
+| `EncryptInfoDat` | 打包进 `etc.rfs` 时是否为 `Info.dat` 设置密码。仅在 `ReplaceInfoDat = true` 时生效。 | `true` — 用密码加密，`false` — 不加密 |
 | `Encoding` | 文本数据的编码（Windows 代码页编号）。 | `1251` — Windows-1251（西里尔文），`65001` — UTF-8 |
 | `ClientVersion` | 生成 `Info.dat` 所针对的客户端版本。 | `null` — 根据数据库结构自动识别（默认），`1602` / `1703` — 手动指定 |
 

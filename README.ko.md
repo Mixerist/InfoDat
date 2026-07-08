@@ -28,6 +28,7 @@
     "ConnectionString": "Data Source=(local);Database=FNLParm;Integrated Security=sspi;",
     "EtcFilePath": "D:\\R2\\R2 PTS\\etc\\etc.rfs",
     "ReplaceInfoDat": false,
+    "EncryptInfoDat": true,
     "Encoding": 1251,
     "ClientVersion": null
 }
@@ -40,6 +41,7 @@
 | `ConnectionString` | 데이터베이스(SQL Server) 연결 문자열. 주요 구성 요소: `Data Source` — 서버 주소(`(local)`, `127.0.0.1`), `Database` — DB 이름, `Integrated Security` — 인증 방식(Windows 인증의 경우 `sspi`). | `Data Source=(local);Database=FNLParm;Integrated Security=sspi;` |
 | `EtcFilePath` | 클라이언트의 `etc.rfs` 파일 경로. `ReplaceInfoDat = true`일 때 클라이언트의 `Info.dat`를 교체하는 데만 사용됩니다. JSON에서는 슬래시를 이중 슬래시(`\\`)로 이스케이프합니다. | `D:\\R2\\R2 PTS\\etc\\etc.rfs` |
 | `ReplaceInfoDat` | 클라이언트의 `Info.dat`를 직접 교체할지 여부. | `true` — 덮어쓰기(`EtcFilePath` 필요), `false` — 변경하지 않음 |
+| `EncryptInfoDat` | `etc.rfs`에 넣을 때 `Info.dat`에 비밀번호를 설정할지 여부. `ReplaceInfoDat = true`일 때만 동작합니다. | `true` — 비밀번호로 암호화, `false` — 암호화하지 않음 |
 | `Encoding` | 텍스트 데이터 인코딩(Windows 코드 페이지 번호). | `1251` — Windows-1251(키릴 문자), `65001` — UTF-8 |
 | `ClientVersion` | `Info.dat`를 생성할 대상 클라이언트 버전. | `null` — DB 스키마 기반 자동 판별(기본값), `1602` / `1703` — 직접 지정 |
 
